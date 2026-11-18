@@ -1,0 +1,16 @@
+# Define os serviços (contêineres) deste projeto
+services:
+  # Nome do serviço: um servidor web chamado "site"
+  site:
+    # Imagem oficial do Caddy, versão 2 (tag "2" acompanha as atualizações 2.x)
+    image: caddy:2
+    # Reinicia o contêiner automaticamente, a menos que você o pare manualmente
+    restart: unless-stopped
+    # Lista de portas expostas
+    ports:
+      # Porta 8090 do seu computador -> porta 80 dentro do contêiner (padrão do Caddy)
+      - "8090:80"
+    # Lista de pastas compartilhadas com o contêiner
+    volumes:
+      # Pasta atual (.) -> /usr/share/caddy, onde o Caddy busca os arquivos do site; ":ro" = somente leitura
+      - .:/usr/share/caddy:ro
